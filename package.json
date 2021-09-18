@@ -1,0 +1,26 @@
+{
+  "name": "social_media",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mohiuddin2/social_media.git"
+  },
+  "keywords": [
+    "social",
+    "media"
+  ],
+  "author": "Adi & Mohiuddin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mohiuddin2/social_media/issues"
+  },
+  "homepage": "https://github.com/Mohiuddin2/social_media#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
