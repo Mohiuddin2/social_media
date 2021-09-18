@@ -1,8 +1,8 @@
 {
   "name": "social_media",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A Social media App",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
