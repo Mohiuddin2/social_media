@@ -22,6 +22,8 @@
   "homepage": "https://github.com/Mohiuddin2/social_media#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "ejs-mate": "^3.0.0",
     "express": "^4.17.1",
     "mongoose": "^6.0.6"
   }

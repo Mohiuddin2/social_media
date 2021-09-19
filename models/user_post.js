@@ -9,7 +9,7 @@ const UserScheme = Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   password: {
     type: String,
@@ -37,18 +37,20 @@ const PostScheme = Schema({
     type: Date,
     default: Date.now(),
   },
-  likes:{
-    type: Int,
+  likes: {
+    type: Number,
     default: 0,
   },
   comment: {
     user: UserScheme,
     text: {
-        type: String,
-        required: true,
-        },
+      type: String,
+      required: true,
     },
+  },
 });
 
-module.exports = mongoose.model("User", UserScheme);
-module.exports = mongoose.model("Post", PostScheme)
+const User = mongoose.model("User", UserScheme);
+const Post = mongoose.model("Post", PostScheme);
+
+module.exports = { User, Post };
