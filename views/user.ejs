@@ -1,0 +1,13 @@
+<h1>Users</h1>
+
+<ol>
+    <% for (let user of users) { %>
+        <li>
+            <a href="user_show/<%= user._id%>">
+                <%= user.name %>
+            </a>
+            
+
+        </li>
+        <% } %>
+</ol>
