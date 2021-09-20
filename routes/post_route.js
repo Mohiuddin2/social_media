@@ -7,14 +7,14 @@ const { User, Post } = require("../models/user_post");
 router.get("/", (req, res) => {
   res.render("login");
 });
-
+// to Create User it works..
 router.post(
   "/user",
   catchAsync(async (req, res, next) => {
     const newUser = new User(req.body);
     await newUser.save();
     console.log(newUser);
-    res.redirect("/");
+    res.redirect("/users");
     // res.json(newUser);
   })
 );
@@ -24,21 +24,23 @@ router.get(
   catchAsync(async (req, res) => {
     // if(!mongoose.Types.ObjectId.isValid(id))
     // return false;
-    const { id } = req.params;
-    console.log(`ID: ${id}`);
-    const user = await User.findById({ id }).populate("name");
+    // const { id } = req.params;
+    // console.log(`ID: ${id}`);
+    // const user = await User.findById({id});
+    const user = await User.findById(req.params.id);
     console.log(`User: ${user}`);
     res.render("user_show", { user });
   })
 );
 
-// User Show
+// User Show user list
 router.get("/create_post/:id", async (req, res) => {
   const { id } = req.body;
   const users = await User.findById({ id });
   res.render("post", { users });
 });
 
+// Posts Not Applied yet
 router.post(
   "/user/:id/posts",
   catchAsync(async (req, res, next) => {
@@ -54,9 +56,11 @@ router.post(
   })
 );
 
-router.get("/users", async (req, res) => {
+// Show UserList it works
+
+router.get("/users", catchAsync(async (req, res) => {
   const users = await User.find({});
   res.render("user", { users });
-});
+}));
 
 module.exports = router;
