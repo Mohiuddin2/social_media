@@ -17,16 +17,26 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use("/", postRouter);
 
-
 // Connect to DB
-mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true}, () =>
-  console.log("DB Connected")
+mongoose.connect(
+  process.env.DB_CONNECTION,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => console.log("DB Connected")
 );
 
+// app.all("*", (req, res, next) => {
+//   next(new ExpressError("Page Not Found", 404));
+// });
+
+// // default error handler..
+// app.use((err, req, res, next) => {
+//   const { statusCode = 500 } = err;
+//   if (!err.message) err.message = "Saomething Went Wrong";
+//   res.status(statusCode).send("error", { err });
+// });
 
 app.listen(5000, () => {
   console.log("5000 is serving!!");
 });
-
 
 // DB_CONNECTION=mongodb+srv://Social_Media:BuRJxAvVGyTcgUUS@cluster0.nusb2.mongodb.net/myFirstDatabase?retryWrites=true"

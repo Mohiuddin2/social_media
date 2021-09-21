@@ -18,49 +18,49 @@ router.post(
     // res.json(newUser);
   })
 );
-// User_Show
+// User_details show.. it works
 router.get(
   "/user_show/:id",
   catchAsync(async (req, res) => {
-    // if(!mongoose.Types.ObjectId.isValid(id))
-    // return false;
-    // const { id } = req.params;
-    // console.log(`ID: ${id}`);
-    // const user = await User.findById({id});
     const user = await User.findById(req.params.id);
     console.log(`User: ${user}`);
     res.render("user_show", { user });
   })
 );
 
-// User Show user list
-router.get("/create_post/:id", async (req, res) => {
-  const { id } = req.body;
-  const users = await User.findById({ id });
-  res.render("post", { users });
+// User Show user list not applyet yet
+router.get("/post/:id", async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  res.render("post", { user });
 });
 
-// Posts Not Applied yet
+// Create Posts Not Applied yet
 router.post(
-  "/user/:id/posts",
+  "/c_post/:id/posts",
   catchAsync(async (req, res, next) => {
+    console.log("Entered");
     const { id } = req.params;
     const user = await User.findById(id);
-    const { title, caption, image, comment } = req.body;
-    const post = new Post({ title, caption, image, comment });
+    // const { title, caption, image, comment } = req.body;
+    const post = new Post(req.body.post);
     user.posts.push(post);
     post.user = user;
     await user.save();
     await post.save();
-    res.redirect(`/user/${id}`);
+    console.log(post);
+    res.send("Post Created");
   })
 );
 
 // Show UserList it works
 
-router.get("/users", catchAsync(async (req, res) => {
-  const users = await User.find({});
-  res.render("user", { users });
-}));
+router.get(
+  "/users",
+  catchAsync(async (req, res) => {
+    const users = await User.find({});
+    res.render("user", { users });
+  })
+);
 
 module.exports = router;
