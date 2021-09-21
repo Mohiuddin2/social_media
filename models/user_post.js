@@ -1,26 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const UserScheme = Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    // unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  date: {
-    type: Date,
-    default: Date.now(),
-  },
-});
-
 const PostScheme = Schema({
   title: {
     type: String,
@@ -41,16 +21,46 @@ const PostScheme = Schema({
     type: Number,
     default: 0,
   },
-  comment: {
-    user: UserScheme,
+  comments: [
+    user : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }
     text: {
       type: String,
       required: true,
     },
-  },
+  ]
 });
-
-const User = mongoose.model("User", UserScheme);
 const Post = mongoose.model("Post", PostScheme);
+
+
+const UserScheme = Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    // unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now(),
+  },
+  posts :[
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post"
+    }
+  ]
+});
+const User = mongoose.model("User", UserScheme);
+
 
 module.exports = { User, Post };
