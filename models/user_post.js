@@ -21,7 +21,7 @@ const PostScheme = Schema({
     type: Number,
     default: 0,
   },
-  comments: [
+  comments: [{
     user : {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
@@ -30,7 +30,7 @@ const PostScheme = Schema({
       type: String,
       required: true,
     },
-  ]
+             }]
 });
 const Post = mongoose.model("Post", PostScheme);
 
