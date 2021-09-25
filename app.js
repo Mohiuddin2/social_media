@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const ejsMate = require("ejs-mate");
+const ejsLint = require("ejs-lint")
 
 require("dotenv/config");
 

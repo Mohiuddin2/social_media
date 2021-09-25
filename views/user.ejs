@@ -1,11 +1,15 @@
-<h1>Users</h1>
+<% layout("layout/boilerplate") %>
 
-<ol>
-    <% for (let user of users) { %>
-        <li>
-            <a href="post/<%= user._id%>">
-                <%= user.name %>
-            </a>
-        </li>
-        <% } %>
-</ol>
+    <div class="container offset-2 bg-light">
+        <h1>Users list</h1>
+        <ol>
+            <% for (let user of users) { %>
+                <!-- 111111111 -->
+                <li>
+                    <a href="user/<%= user._id%>">
+                        <%= user.name %>
+                    </a>
+                </li>
+                <% } %>
+        </ol>
+    </div>

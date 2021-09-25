@@ -1,0 +1,7 @@
+<form action="/user/<%=user.id %>/post/<%= post.id %>/comments" method="POST">;
+    <div class="mt-2">
+        <label for="text_com" class="form-label">Comments</label>
+        <textarea type="text" class="form-control" name="text_com" id="text_com" placeholder="comment"></textarea>
+    </div>
+    <button type="submit" class="btn btn-info mt-2">Comment</button>
+</form>

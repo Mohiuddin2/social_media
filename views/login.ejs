@@ -1,12 +1,15 @@
-<h1>Creat User</h1>
-<form action="/user" method="POST">
-    <div><label for="name">Name</label>
-        <input type="text" name="name" id="name" required>
-    </div>
-    <div></div><label for="email">Email</label>
-    <input type="email" name="email" id="email" required></div>
-    <div> <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-    </div>
-    <button type="submit">Register</button>
-</form>
+<% layout("layout/boilerplate.ejs") %>
+
+    <h1>Creat User</h1>
+    <form action="/user" method="POST" style="width: 30rem;">
+        <div><label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" name="name" id="name" required>
+        </div>
+        <div><label for="email" class="col-form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="email" required>
+        </div>
+        <div> <label for="password" class="col-form-label"></label>Password</label>
+            <input type="password" class="form-control" name="password" id="password" required>
+        </div>
+        <button type="submit" class="btn btn-success mb-3">Register</button>
+    </form>

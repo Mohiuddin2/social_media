@@ -1,0 +1,20 @@
+<% layout("layout/boilerplate.ejs") %>
+<% for(let post of user.posts) {%>
+    <div class="card mb-3 mt-3">
+        <div class="card-body">
+            <h5 class="card-title">
+                <%=post.title %> <button class="btn btn-block btn-primary"><i class="fa fa-thumbs-up">Like</i>
+                    </button>
+                    <%=post.likes %>
+            </h5>
+            <h6 class="card-subtitle mb-2 text-muted">
+                <%= post.caption %>
+            </h6>
+            <img src="<%= post.imgLink %>" class="card-img-top" alt="image" style="width: 30rem;">
+            <h6>
+                <%=post.date %>
+            </h6>
+        </div>
+        <%=console.log(post) %> 
+        <%}%> 
+    </div>
