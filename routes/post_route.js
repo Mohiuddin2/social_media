@@ -63,17 +63,19 @@ router.get("/user/:id", catchAsync(async(req, res) => {
   res.render("post", { user});
 }));
 // User Show user it works .. to shwo post creaet comments
-router.get("/user/:id", catchAsync(async(req, res) => {
-  // console.log(req.params);
-  const { id } = req.params;
-  const user = await User.findById(id).populate("posts");
+router.get("/user/:uId/:pId/:cId", catchAsync(async(req, res) => {
+  console.log(req.params);
+  const{uId} = req.params;
+  const user = await User.findById(uId).populate("posts")
+  const { pId } = req.params;
+  const post = await Post.findById(pId).populate("comments");
 
   // console.log(`User0000000:-----${user}`);
   // const post = await Post.find(user)
   // console.log(`Post0000000:-----${post}`);
   // const comment = await post.findById
   // console.log(`User:-----${user}`);
-  res.render("post", { user});
+  res.render("post_com", { user, post});
 }));
 
 // Cooment Routes is under construction
@@ -93,10 +95,10 @@ router.post(
     await user.save();
     await post.save();
     await comment.save();
-    console.log(`NewComment: ${user}`);
+    // console.log(`NewComment: ${user}`);
     // res.send(req.body)
     // res.redirect(`/post/${post.id}/comments`);
-    res.redirect(`/user/${user._id}`);
+    res.redirect(`/user/${user.id}/${post.id}/${comment.id}`);
     // 111111;
     // res.render("comments");
     // res.send("Comments Created!!");

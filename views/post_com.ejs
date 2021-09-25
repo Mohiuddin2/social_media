@@ -46,11 +46,16 @@
                     <button type="submit" class="btn btn-info mt-2">Comment</button>
                 </form>
                 <!-- comments Show.. Ends -->
-              
+
                 <!-- Comment Show -->
 
             </div>
             <%}%>
                 <!-- post show ends here -->
-
+                <H1>Comment</H1>
+                <p>
+                    <% for(let comment of post.comments) {%>
+                        Comment: <%= comment.text_com %>
+                            <%} %>
+                </p>
     </div>
