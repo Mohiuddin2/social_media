@@ -3,7 +3,9 @@ const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const ejsMate = require("ejs-mate");
-const ejsLint = require("ejs-lint")
+const ejsLint = require("ejs-lint");
+const ExpressError = require("./utility/ExpressError");
+const methodOverride = require("method-override");
 
 require("dotenv/config");
 
@@ -12,6 +14,7 @@ const postRouter = require("./routes/post_route");
 
 // Every time we go to post --we use postRoutes(post.js), Middleware
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
@@ -25,16 +28,17 @@ mongoose.connect(
   () => console.log("DB Connected")
 );
 
-// app.all("*", (req, res, next) => {
-//   next(new ExpressError("Page Not Found", 404));
-// });
-
-// // default error handler..
-// app.use((err, req, res, next) => {
-//   const { statusCode = 500 } = err;
-//   if (!err.message) err.message = "Saomething Went Wrong";
-//   res.status(statusCode).send("error", { err });
-// });
+app.all("/*", (req, res, next) => {
+  // console.log("koooooooooooooooooooooor");
+  next(new ExpressError("Page Not Found", 404));
+});
+// default error handler..
+app.use((err, req, res, next) => {
+  const { statusCode = 500 } = err;
+  if (!err.message) err.message = "Saomething Went Wrong";
+  // res.status(statusCode).send("error", { err });
+  res.status(404).send(err); // i have problem here with express error
+});
 
 app.listen(5000, () => {
   console.log("5000 is serving!!");

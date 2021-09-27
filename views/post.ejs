@@ -4,7 +4,7 @@
             <%= user.name %>
         </h1>
         <!-- for creating post -->
-        <form action="/c_post/<%=user.id%>/posts" method="POST" style="width: 30rem;">
+        <form action="/user/<%=user.id%>/posts" method="POST" style="width: 30rem;">
             <div>
                 <label for="title" class="col-form-label">Title</label>
                 <textarea class="form-control" name="post[title]" id="title" placeholder="Title"></textarea>
@@ -35,6 +35,15 @@
                     <h6>
                         <%=post.date %>
                     </h6>
+                    <!-- Delete -->
+                    <div class="card-body">
+                        <a href="/user/<%=user._id %>/post/<%=post._id %>/edit" class="card-link btn btn-info">Edit</a>
+                        <form class="d-inline" action="/user/<%=user._id%>/post/<%=post._id%>?_method=DELETE"
+                            method="POST">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+
+                    </div>
                 </div>
                 <!-- comments -->
                 <form action="/user/<%=user.id %>/post/<%= post.id %>/comments" method="POST" style="width: 30rem;">;
@@ -46,7 +55,7 @@
                     <button type="submit" class="btn btn-info mt-2">Comment</button>
                 </form>
                 <!-- comments Ends -->
-              
+
                 <!-- Comment Show -->
 
             </div>

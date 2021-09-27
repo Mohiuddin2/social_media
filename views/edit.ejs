@@ -1,0 +1,19 @@
+,<% layout("layout/boilerplate") %>
+
+    <form action="/user/<%=user.id%>/post/<%= post.id%>?_method=PUT" method="POST" style="width: 30rem;">
+        <div>
+            <label for="title" class="col-form-label">Title</label>
+            <input type="text" class="form-control" name="post[title]" id="title" value="<%=post.title%>">
+        </div>
+        <div>
+            <label for="caption" class="form-label">Caption</label>
+            <input type="text" class="form-control" name="post[caption]" id="caption" value="<%=post.caption%>">
+        </div>
+        <div>
+            <label for="imgLink" class="form-label">Image</label>
+            <input type="text" class="form-control" name="post[imgLink]" id="image" value="<%=post.imgLink%>">
+        </div>
+        <button type="submit" class="btn btn-info mt-2">Update</button>
+        <button type="button" class="btn btn-success mt-2"> <a href="/user/<%=user.id%> ">Cancel</a>
+        </button>
+    </form>

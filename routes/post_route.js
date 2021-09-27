@@ -30,11 +30,21 @@ router.post(
     // res.json(newUser);
   })
 );
-
+//  Edit route
+router.get(
+  "/user/:uId/post/:pId/edit",
+  catchAsync(async (req, res) => {
+    const {uId, pId} = req.params;
+    const user = await User.findById(uId)
+    const post = await Post.findById(pId)
+    console.log(req.params);
+    res.render("edit", {user, post});
+  })
+);
 
 // Create Posts it works
 router.post(
-  "/c_post/:id/posts",
+  "/user/:id/posts",
   catchAsync(async (req, res, next) => {
     // console.log("Entered");
     const { id } = req.params;
@@ -49,34 +59,46 @@ router.post(
     res.redirect(`/user/${user._id}`); ///11111111
   })
 );
-// User Show user it works .. to shwo post creaet comments
-router.get("/user/:id", catchAsync(async(req, res) => {
-  // console.log(req.params);
-  const { id } = req.params;
-  const user = await User.findById(id).populate("posts");
+// update eidit
+router.put("/user/:uId/post/:pId", catchAsync(async(req, res) => {
+  const { uId, pId } = req.params;
+  const user = await User.findById(uId);
+  const post = await Post.findByIdAndUpdate(pId, {...req.body.post})
+  res.redirect(`/user/${user._id}`)
+}))
+// Delete done
+router.delete(
+  "/user/:uId/post/:pId",
+  catchAsync(async (req, res) => {
+    // console.log(req.params);
+    const { uId, pId } = req.params;
+    await User.findByIdAndUpdate(uId, { $pull: { posts: pId } });
+    await Post.findByIdAndDelete(pId);
+    res.redirect(`/user/${uId}`);
+  })
+);
 
-  // console.log(`User0000000:-----${user}`);
-  // const post = await Post.find(user)
-  // console.log(`Post0000000:-----${post}`);
-  // const comment = await post.findById
-  // console.log(`User:-----${user}`);
-  res.render("post", { user});
-}));
 // User Show user it works .. to shwo post creaet comments
-router.get("/user/:uId/:pId/:cId", catchAsync(async(req, res) => {
-  console.log(req.params);
-  const{uId} = req.params;
-  const user = await User.findById(uId).populate("posts")
-  const { pId } = req.params;
-  const post = await Post.findById(pId).populate("comments");
-
-  // console.log(`User0000000:-----${user}`);
-  // const post = await Post.find(user)
-  // console.log(`Post0000000:-----${post}`);
-  // const comment = await post.findById
-  // console.log(`User:-----${user}`);
-  res.render("post_com", { user, post});
-}));
+router.get(
+  "/user/:id",
+  catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id).populate("posts");
+    res.render("post", { user });
+  })
+);
+// User Show user it works .. to shwo post creaet comments
+router.get(
+  "/user/:uId/:pId/:cId",
+  catchAsync(async (req, res) => {
+    console.log(req.params);
+    const { uId } = req.params;
+    const user = await User.findById(uId).populate("posts");
+    const { pId } = req.params;
+    const post = await Post.findById(pId).populate("comments");
+    res.render("post_com", { user, post });
+  })
+);
 
 // Cooment Routes is under construction
 router.post(
@@ -95,16 +117,8 @@ router.post(
     await user.save();
     await post.save();
     await comment.save();
-    // console.log(`NewComment: ${user}`);
-    // res.send(req.body)
-    // res.redirect(`/post/${post.id}/comments`);
     res.redirect(`/user/${user.id}/${post.id}/${comment.id}`);
-    // 111111;
-    // res.render("comments");
-    // res.send("Comments Created!!");
   })
 );
-
-
 
 module.exports = router;
